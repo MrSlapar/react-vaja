@@ -4,7 +4,7 @@ function Navbar({openAddToDoModel}) {
             <div className="container-fluid">
                 <a className="navbar-brand">Todo app</a>
                 <form className="d-flex input-group w-auto">
-                    <button type="button" className="btn btn-primary me-3" style={ { height:35 }} onClick={openAddToDoModel}>
+                    <button type="button" className="btn btn-primary me-3" style={ { height:35, borderRadius:5 }} onClick={openAddToDoModel}>
                         ADD TODO
                     </button>
                     <input

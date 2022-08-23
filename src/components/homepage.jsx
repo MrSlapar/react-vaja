@@ -7,7 +7,7 @@ function Homepage({ isModalVisible, setModalVisible, todos, setTodos }) {
     const addTodo = (title, description) => {
         setTodos([...todos, { 
             title, description,
-            add_created: new Date()
+            date_created: new Date()
         }]);
     };
 
