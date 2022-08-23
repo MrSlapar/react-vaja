@@ -6,15 +6,13 @@ import Homepage from './components/homepage'
 
 
 function App() {
-  const [isModalVisible, setModalVisible] = useState(false);
   const [todos, setTodos] = useState([]);
   return (
     <div>
-      <Navbar openAddToDoModel={() => setModalVisible(true)} />
+      <Navbar />
       <div className="main-container">
-        <Homepage {... {isModalVisible, setModalVisible, todos, setTodos}}/>
-
-    </div>
+        <Homepage {... { todos, setTodos }} />
+      </div>
     </div>
   )
 }
