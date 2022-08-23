@@ -1,11 +1,11 @@
-import './modal.css';
 import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { HIDE_TODO_MODAL, TODO_ADD } from "../../actions/types";
+import { uuid } from "../../utils";
 import "./modal.css";
-import { HIDE_TODO_MODAL } from "../../actions/types";
 
 
-function AddToDoModal({ visible, setVisible, addTodo }) {
+function AddToDoModal() {
     const isModalVisible = useSelector(state => state.todo.todoModalVisible);
     const dispatch = useDispatch();
     const titleRef = useRef(null);
@@ -18,7 +18,11 @@ function AddToDoModal({ visible, setVisible, addTodo }) {
     const saveTodo = () => {
         const title = titleRef.current.value;
         const description = descRef.current.value;
-        addTodo(title, description);
+        const ident = uuid();
+        const date = new Date();
+        dispatch ({
+            type: TODO_ADD, 
+            payload: { title, description, date_created: date.toJSON()}, ident, done: false })
         dispatch({ type: HIDE_TODO_MODAL });
     }
 
@@ -28,11 +32,20 @@ function AddToDoModal({ visible, setVisible, addTodo }) {
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title">Modal title</h5>
-                        <button type="button" className="btn-close" data-mdb-dismiss="modal" aria-label="Close" onClick={() => dispatch({ type: HIDE_TODO_MODAL })}></button>
+                        <button 
+                            type="button" 
+                            className="btn-close" 
+                            data-mdb-dismiss="modal" 
+                            aria-label="Close" 
+                            onClick={() => dispatch({ type: HIDE_TODO_MODAL })}>
+                        </button>
                     </div>
                     <div className="modal-body">
                         <div>
-                            <label className="form-label" htmlFor="form12">Titile</label>
+                            <label 
+                                className="form-label" 
+                                htmlFor="form12">Titile
+                            </label>
                             <input ref={titleRef} type="text" id="form12" className="form-control" />
                         </div>
                         <div>
@@ -41,7 +54,11 @@ function AddToDoModal({ visible, setVisible, addTodo }) {
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-primary" onClick={saveTodo}>Save changes</button>
+                        <button 
+                            type="button" 
+                            className="btn btn-primary" 
+                            onClick={saveTodo}>Save changes
+                        </button>
                     </div>
 
                 </div>

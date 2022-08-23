@@ -1,15 +1,12 @@
 import { useState } from "react";
 import Card from "./card";
 import AddToDoModal from "./modals/AddToDoModal";
+import { useSelector } from "react-redux";
 
 
-function Homepage({ todos, setTodos }) {
-    const addTodo = (title, description) => {
-        setTodos([...todos, {
-            title, description,
-            date_created: new Date()
-        }]);
-    };
+function Homepage() {
+    const todos = useSelector(state => state.todo.todoData);
+    console.log(todos);
 
     return (
         <>
@@ -18,7 +15,7 @@ function Homepage({ todos, setTodos }) {
                     <Card key={index} {...todo} />
                 ))}
             </div>
-            <AddToDoModal addTodo={addTodo} />
+            <AddToDoModal />
         </>
     );
 }
