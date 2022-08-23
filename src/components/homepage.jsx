@@ -3,9 +3,9 @@ import Card from "./card";
 import AddToDoModal from "./modals/AddToDoModal";
 
 
-function Homepage({ isModalVisible, setModalVisible, todos, setTodos }) {
+function Homepage({ todos, setTodos }) {
     const addTodo = (title, description) => {
-        setTodos([...todos, { 
+        setTodos([...todos, {
             title, description,
             date_created: new Date()
         }]);
@@ -15,10 +15,10 @@ function Homepage({ isModalVisible, setModalVisible, todos, setTodos }) {
         <>
             <div className="row">
                 {todos.map((todo, index) => (
-                    <Card key={index} {...todo}/>
+                    <Card key={index} {...todo} />
                 ))}
             </div>
-            <AddToDoModal visible={isModalVisible} setVisible={setModalVisible} addTodo={addTodo}/>
+            <AddToDoModal addTodo={addTodo} />
         </>
     );
 }

@@ -1,18 +1,25 @@
 import './modal.css';
 import { useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import "./modal.css";
+import { HIDE_TODO_MODAL } from "../../actions/types";
+
 
 function AddToDoModal({ visible, setVisible, addTodo }) {
-    if (!visible) {
-        return <></>
-    }
+    const isModalVisible = useSelector(state => state.todo.todoModalVisible);
+    const dispatch = useDispatch();
     const titleRef = useRef(null);
     const descRef = useRef(null);
+
+    if (!isModalVisible) {
+        return <></>;
+    }
 
     const saveTodo = () => {
         const title = titleRef.current.value;
         const description = descRef.current.value;
         addTodo(title, description);
-        setVisible(false);
+        dispatch({ type: HIDE_TODO_MODAL });
     }
 
     return (
@@ -21,7 +28,7 @@ function AddToDoModal({ visible, setVisible, addTodo }) {
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title">Modal title</h5>
-                        <button type="button" className="btn-close" data-mdb-dismiss="modal" aria-label="Close" onClick={() => setVisible(false)}></button>
+                        <button type="button" className="btn-close" data-mdb-dismiss="modal" aria-label="Close" onClick={() => dispatch({ type: HIDE_TODO_MODAL })}></button>
                     </div>
                     <div className="modal-body">
                         <div>
